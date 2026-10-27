@@ -1,0 +1,37 @@
+name: Build SWD PRM Windows App
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Pobierz pliki aplikacji
+        uses: actions/checkout@v4
+
+      - name: Skonfiguruj Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Zainstaluj zależności
+        run: npm install
+
+      - name: Zbuduj aplikację Windows
+        run: npm run dist
+
+      - name: Udostępnij gotowe pliki EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: SWD-PRM-Tablet-NT
+          path: dist/*.exe
+          if-no-files-found: error
+          retention-days: 14
