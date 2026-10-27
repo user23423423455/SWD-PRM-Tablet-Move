@@ -35,6 +35,28 @@
       margin-right: 0;
       cursor: pointer;
     }
+    /* GCS: każda odpowiedź w jednym wierszu; kropki nie przenoszą punktacji do kolejnej linii. */
+    .gcs-options { margin: 5px 0 14px; }
+    .gcs-row {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      min-height: 27px;
+      width: 100%;
+      line-height: 1.25;
+    }
+    .gcs-label { flex: 0 1 auto; min-width: 0; }
+    .gcs-leader {
+      flex: 1 1 12px;
+      min-width: 8px;
+      align-self: center;
+      border-bottom: 2px dotted #718795;
+      transform: translateY(2px);
+    }
+    .gcs-row .checkbox { flex: 0 0 20px; margin: 0; }
+    .gcs-score { flex: 0 0 auto; white-space: nowrap; }
+    .small-box { overflow-wrap: anywhere; }
+
     label {
       display: block;
       margin-bottom: 5px;
@@ -176,26 +198,30 @@
 
       <div class="small-box">
         <h3>Glasgow Coma Scale</h3>
-        <strong>Otwieranie oczu</strong><br>
-        spontanicznie ........<input type="checkbox" class="checkbox"> ........ (4)<br>
-        na głos ........<input type="checkbox" class="checkbox"> ........ (3)<br>
-        na ból ........<input type="checkbox" class="checkbox"> ........ (2)<br>
-        brak ........<input type="checkbox" class="checkbox"> ........ (1)<br><br>
-
-        <strong>Reakcja słowna</strong><br>
-        zorientowany ........<input type="checkbox" class="checkbox"> ........ (5)<br>
-        splątany ........<input type="checkbox" class="checkbox"> ........ (4)<br>
-        niewłaściwe słowa ........<input type="checkbox" class="checkbox"> ........ (3)<br>
-        niezrozumiałe dźwięki ........<input type="checkbox" class="checkbox"> ........ (2)<br>
-        brak ........<input type="checkbox" class="checkbox"> ........ (1)<br><br>
-
-        <strong>Reakcja ruchowa</strong><br>
-        wykonuje polecenia ........<input type="checkbox" class="checkbox"> ........ (6)<br>
-        lokalizacja bólu ........<input type="checkbox" class="checkbox"> ........ (5)<br>
-        ucieczka od bólu ........<input type="checkbox" class="checkbox"> ........ (4)<br>
-        zgięciowa ........<input type="checkbox" class="checkbox"> ........ (3)<br>
-        wyprostna ........<input type="checkbox" class="checkbox"> ........ (2)<br>
-        brak ........<input type="checkbox" class="checkbox"> ........ (1)<br><br>
+        <strong>Otwieranie oczu</strong>
+        <div class="gcs-options">
+          <div class="gcs-row"><span class="gcs-label">spontanicznie</span><span class="gcs-leader"></span><input type="checkbox" class="checkbox"><span class="gcs-score">(4)</span></div>
+          <div class="gcs-row"><span class="gcs-label">na głos</span><span class="gcs-leader"></span><input type="checkbox" class="checkbox"><span class="gcs-score">(3)</span></div>
+          <div class="gcs-row"><span class="gcs-label">na ból</span><span class="gcs-leader"></span><input type="checkbox" class="checkbox"><span class="gcs-score">(2)</span></div>
+          <div class="gcs-row"><span class="gcs-label">brak</span><span class="gcs-leader"></span><input type="checkbox" class="checkbox"><span class="gcs-score">(1)</span></div>
+        </div>
+        <strong>Reakcja słowna</strong>
+        <div class="gcs-options">
+          <div class="gcs-row"><span class="gcs-label">zorientowany</span><span class="gcs-leader"></span><input type="checkbox" class="checkbox"><span class="gcs-score">(5)</span></div>
+          <div class="gcs-row"><span class="gcs-label">splątany</span><span class="gcs-leader"></span><input type="checkbox" class="checkbox"><span class="gcs-score">(4)</span></div>
+          <div class="gcs-row"><span class="gcs-label">niewłaściwe słowa</span><span class="gcs-leader"></span><input type="checkbox" class="checkbox"><span class="gcs-score">(3)</span></div>
+          <div class="gcs-row"><span class="gcs-label">niezrozumiałe dźwięki</span><span class="gcs-leader"></span><input type="checkbox" class="checkbox"><span class="gcs-score">(2)</span></div>
+          <div class="gcs-row"><span class="gcs-label">brak</span><span class="gcs-leader"></span><input type="checkbox" class="checkbox"><span class="gcs-score">(1)</span></div>
+        </div>
+        <strong>Reakcja ruchowa</strong>
+        <div class="gcs-options">
+          <div class="gcs-row"><span class="gcs-label">wykonuje polecenia</span><span class="gcs-leader"></span><input type="checkbox" class="checkbox"><span class="gcs-score">(6)</span></div>
+          <div class="gcs-row"><span class="gcs-label">lokalizacja bólu</span><span class="gcs-leader"></span><input type="checkbox" class="checkbox"><span class="gcs-score">(5)</span></div>
+          <div class="gcs-row"><span class="gcs-label">ucieczka od bólu</span><span class="gcs-leader"></span><input type="checkbox" class="checkbox"><span class="gcs-score">(4)</span></div>
+          <div class="gcs-row"><span class="gcs-label">zgięciowa</span><span class="gcs-leader"></span><input type="checkbox" class="checkbox"><span class="gcs-score">(3)</span></div>
+          <div class="gcs-row"><span class="gcs-label">wyprostna</span><span class="gcs-leader"></span><input type="checkbox" class="checkbox"><span class="gcs-score">(2)</span></div>
+          <div class="gcs-row"><span class="gcs-label">brak</span><span class="gcs-leader"></span><input type="checkbox" class="checkbox"><span class="gcs-score">(1)</span></div>
+        </div>
 
         <strong>Suma:</strong> <input type="text" class="textbox" style="width: 60px; height: 30px;">
       </div>
