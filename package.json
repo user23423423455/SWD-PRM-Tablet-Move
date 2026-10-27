@@ -1,0 +1,48 @@
+{
+  "name": "swd-prm-tablet-kmcr",
+  "version": "1.0.0",
+  "description": "Tablet medyczny KMCR do Roleplay — nieoficjalna makieta",
+  "main": "main.cjs",
+  "author": "Nachash",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win nsis portable"
+  },
+  "devDependencies": {
+    "electron": "^35.0.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "pl.nachash.swdprm.kmcr",
+    "publish": null,
+    "productName": "SWD PRM Tablet KMCR",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "index.html",
+      "KMCR.html",
+      "main.cjs",
+      "resources/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "icon": "resources/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    },
+    "portable": {
+      "artifactName": "SWD-PRM-Tablet-KMCR-Portable.exe"
+    }
+  }
+}

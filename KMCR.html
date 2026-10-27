@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Karta Medycznych Czynności Ratunkowych</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #6a8be6;
+    }
+    .section {
+      border: 1px solid #000;
+      padding: 10px;
+      margin: 10px;
+      background-color: #ff6d75;
+    }
+    .textbox {
+      background-color: #fff; /* Białe tło inputów jak w GCS i RTS */
+      width: 100%;
+      height: 40px;
+      margin: 5px 0;
+      border: 1px solid #000;
+      box-sizing: border-box;
+      padding: 5px;
+      font-size: 16px;
+    }
+    .checkbox {
+      accent-color: #000;
+      width: 20px;
+      height: 20px;
+      margin-left: 0;
+      margin-right: 0;
+      cursor: pointer;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .block {
+      border: 2px solid #000;
+      padding: 10px;
+      margin: 10px;
+      background-color: #ff6d75;
+    }
+    .block h3 {
+      margin: 5px 0;
+    }
+    /* Flex container dla GCS, RTS i Układu oddechowego */
+    .grid-container {
+      display: flex;
+      gap: 10px;
+      flex-wrap: nowrap; /* żeby nie przechodziły pod siebie */
+      justify-content: flex-start;
+    }
+    /* Styl dla boxów GCS, RTS i Układu oddechowego */
+    .small-box {
+      background-color: #fff;
+      border: 2px solid #000;
+      padding: 10px;
+      width: 350px;
+      box-sizing: border-box;
+    }
+    .small-box h3 {
+      margin-top: 0;
+      text-align: center;
+      font-size: 20px;
+    }
+    .option-label {
+      display: flex;
+      align-items: center;
+      margin-bottom: 6px;
+      justify-content: space-between;
+      /* rozstawiamy opis i checkboxy */
+    }
+    .option-label span.text {
+      display: flex;
+      align-items: baseline;
+      flex: 1 1 auto;
+      min-width: 0;
+      margin-right: 10px;
+      white-space: normal;
+      gap: 0;
+    }
+    .option-label span.text .leader {
+      display: inline-block;
+      flex: 1 1 18px;
+      min-width: 12px;
+      margin-left: 6px;
+      margin-bottom: 3px;
+      border-bottom: 1px dotted #718795;
+      height: 0.75em;
+    }
+    /* Kontener dla checkboxów obok opisów z odstępem */
+    .checkbox-pair {
+      display: flex;
+      gap: 25px;
+      min-width: 70px;
+      justify-content: center;
+    }
+    /* Nagłówki nad checkboxami */
+    .checkbox-headers {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-left: 258px;
+      font-weight: bold;
+      user-select: none;
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+	.niedow {
+      accent-color: #000;
+      width: 20px;
+      height: 20px;
+      margin-left: 3;
+      margin-right: 0;
+      cursor: pointer;
+	  }
+  </style>
+
+<style>
+  body { background:#e9eef2 !important; color:#172b3a; font-family:Arial,sans-serif; }
+  h1 { color:#173f55; font-size:26px; margin:14px 10px 18px; }
+  .block,.section { background:#f7fafc !important; border:1px solid #b8cbd5 !important; border-radius:5px; }
+  .block { background:#e8f2f6 !important; }
+  .small-box { border:1px solid #b8cbd5 !important; border-radius:4px; width:350px; flex:0 0 350px; }
+  .textbox { border:1px solid #9db2bf; border-radius:3px; }
+  input[type="checkbox"] { accent-color:#087f8c; }
+  h2,h3 { color:#1c536b; }
+  #pdf-content { background:#e9eef2; padding:1px 0 18px; width:100%; overflow:visible; }
+  @media (max-width: 900px) {
+    .grid-container { flex-wrap:wrap !important; width:100%; min-width:0; }
+    .small-box { width:auto !important; min-width:0; max-width:100%; flex:1 1 280px !important; }
+    .option-label span.text { white-space:normal; }
+    .checkbox-headers { margin-left:auto; width:50px; gap:12px; justify-content:space-around; padding-right:0; }
+    .textbox { max-width:100%; }
+    .option-label { gap:8px; }
+    .checkbox-pair { gap:12px; min-width:50px; }
+  }
+</style>
+</head>
+<body>
+<div id="pdf-content">
+
+  <h1>Karta Medycznych Czynności Ratunkowych (KMCR)</h1>
+  <div class="block">
+    <h3>Oznaczenie dysponenta zespołu ratownictwa medycznego (ZRM)</h3>
+    <input type="text" class="textbox" placeholder="Kliknij aby wpisać" />
+
+    <h3>Zespół Ratownictwa Medycznego:</h3>
+    <input type="text" class="textbox" placeholder="Kliknij aby wpisać" />
+
+    <h3>Kod ZRM realizującego zlecenie:</h3>
+    <input type="text" class="textbox" placeholder="Kliknij aby wpisać" />
+
+    <h3>Numer zlecenia wyjazdu:</h3>
+    <input type="text" class="textbox" placeholder="Kliknij aby wpisać" />
+  </div
+  <div class="section">
+    <div class="block">
+    <h2>I - Wywiad</h2>
+    <input type="text" class="textbox" placeholder="Kliknij aby wpisać" />
+  </div>
+  </div>
+	</div>
+  <div class="section">
+    <h2>II - Badanie</h2>
+    <div class="grid-container">
+
+      <div class="small-box">
+        <h3>Glasgow Coma Scale</h3>
+        <strong>Otwieranie oczu</strong><br>
+        spontanicznie ........<input type="checkbox" class="checkbox"> ........ (4)<br>
+        na głos ........<input type="checkbox" class="checkbox"> ........ (3)<br>
+        na ból ........<input type="checkbox" class="checkbox"> ........ (2)<br>
+        brak ........<input type="checkbox" class="checkbox"> ........ (1)<br><br>
+
+        <strong>Reakcja słowna</strong><br>
+        zorientowany ........<input type="checkbox" class="checkbox"> ........ (5)<br>
+        splątany ........<input type="checkbox" class="checkbox"> ........ (4)<br>
+        niewłaściwe słowa ........<input type="checkbox" class="checkbox"> ........ (3)<br>
+        niezrozumiałe dźwięki ........<input type="checkbox" class="checkbox"> ........ (2)<br>
+        brak ........<input type="checkbox" class="checkbox"> ........ (1)<br><br>
+
+        <strong>Reakcja ruchowa</strong><br>
+        wykonuje polecenia ........<input type="checkbox" class="checkbox"> ........ (6)<br>
+        lokalizacja bólu ........<input type="checkbox" class="checkbox"> ........ (5)<br>
+        ucieczka od bólu ........<input type="checkbox" class="checkbox"> ........ (4)<br>
+        zgięciowa ........<input type="checkbox" class="checkbox"> ........ (3)<br>
+        wyprostna ........<input type="checkbox" class="checkbox"> ........ (2)<br>
+        brak ........<input type="checkbox" class="checkbox"> ........ (1)<br><br>
+
+        <strong>Suma:</strong> <input type="text" class="textbox" style="width: 60px; height: 30px;">
+      </div>
+
+      <div class="small-box">
+        <h3>RTS</h3>
+        <strong>Częstość oddechów</strong><br>
+        10–29 ........<input type="checkbox" class="checkbox"> ........ (4)<br>
+        >29 ........<input type="checkbox" class="checkbox"> ........ (3)<br>
+        6–9 ........<input type="checkbox" class="checkbox"> ........ (2)<br>
+        1–5 ........<input type="checkbox" class="checkbox"> ........ (1)<br>
+        brak ........<input type="checkbox" class="checkbox"> ........ (0)<br><br>
+
+        <strong>RR skurczowe</strong><br>
+        >89 ........<input type="checkbox" class="checkbox"> ........ (4)<br>
+        76–89 ........<input type="checkbox" class="checkbox"> ........ (3)<br>
+        50–75 ........<input type="checkbox" class="checkbox"> ........ (2)<br>
+        1–49 ........<input type="checkbox" class="checkbox"> ........ (1)<br>
+        0 ........<input type="checkbox" class="checkbox"> ........ (0)<br><br>
+
+        <strong>GCS</strong><br>
+        13–15 ........<input type="checkbox" class="checkbox"> ........ (4)<br>
+        9–12 ........<input type="checkbox" class="checkbox"> ........ (3)<br>
+        6–8 ........<input type="checkbox" class="checkbox"> ........ (2)<br>
+        4–5 ........<input type="checkbox" class="checkbox"> ........ (1)<br>
+        3 ........<input type="checkbox" class="checkbox"> ........ (0)<br><br>
+
+        <strong>Suma:</strong> <input type="text" class="textbox" style="width: 60px; height: 30px;">
+      </div>
+
+      <div class="small-box">
+        <h3>Układ Oddechowy</h3>
+        <strong>Częstość oddechów:</strong> <input type="text" placeholder="/ min" class="textbox" style="width: 100px; height: 30px; display: inline-block; margin-left: 10px;" />
+
+        <br><br>
+
+        <div class="checkbox-headers">
+          <span>T</span>
+          <span>N</span>
+        </div>
+
+        <div class="option-label">
+          <span class="text">Duszność <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            <input type="checkbox" class="checkbox" />
+          </div>
+        </div>
+
+        <div class="option-label">
+          <span class="text">Sinica <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            <input type="checkbox" class="checkbox" />
+          </div>
+        </div>
+
+        <div class="option-label">
+          <span class="text">Bezdech <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            <input type="checkbox" class="checkbox" />
+          </div>
+        </div>
+
+        <br>
+
+        <div class="checkbox-headers szmer">
+          <span>L</span>
+          <span>P</span>
+        </div>
+
+        <div class="option-label">
+          <span class="text">Szmer prawidłowy <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            <input type="checkbox" class="checkbox" />
+          </div>
+        </div>
+
+        <div class="option-label">
+          <span class="text">Furczenie <span class="leader" aria-hidden="true"></span> </span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            <input type="checkbox" class="checkbox" />
+          </div>
+        </div>
+
+        <div class="option-label">
+          <span class="text">Świsty <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            <input type="checkbox" class="checkbox" />
+          </div>
+        </div>
+
+        <div class="option-label">
+          <span class="text">Rzężenia <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            <input type="checkbox" class="checkbox" />
+          </div>
+        </div>
+
+        <div class="option-label">
+          <span class="text">Brak szmerów <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            <input type="checkbox" class="checkbox" />
+          </div>
+        </div>
+
+        <div class="option-label">
+          <span class="text">Inne <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            <input type="checkbox" class="checkbox" />
+          </div>
+        </div>
+
+        <br>
+
+        <div class="option-label">
+          <span class="text">Saturacja <span class="leader" aria-hidden="true"></span></span>
+          <input type="text" class="textbox" style="width: 60px; height: 30px; margin-left: 10px; margin-right: 5px;" />
+          <span style="font-weight: bold;">%</span>
+        </div>
+      </div>
+		<div class="small-box">
+        <h3>Źrenice</h3>
+        <strong>Reakcja na światło:</strong>
+		<br>
+
+        <div class="checkbox-headers">
+          <span>L</span>
+          <span>P</span>
+        </div>
+
+        <div class="option-label">
+          <span class="text">Prawidłowa <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            <input type="checkbox" class="checkbox" />
+          </div>
+        </div>
+
+        <div class="option-label">
+          <span class="text">Powolna <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            <input type="checkbox" class="checkbox" />
+          </div>
+        </div>
+
+        <div class="option-label">
+          <span class="text">Brak <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            <input type="checkbox" class="checkbox" />
+          </div>
+        </div>
+		<br>
+		<strong>Szerokośc:</strong>
+		<br>
+
+        <div class="checkbox-headers">
+          <span>L</span>
+          <span>P</span>
+        </div>
+
+        <div class="option-label">
+          <span class="text">Normalna <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            <input type="checkbox" class="checkbox" />
+          </div>
+        </div>
+
+        <div class="option-label">
+          <span class="text">Wąska <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            <input type="checkbox" class="checkbox" />
+          </div>
+        </div>
+
+        <div class="option-label">
+          <span class="text">Szeroka <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            <input type="checkbox" class="checkbox" />
+          </div>
+        </div>
+		<br>
+		<strong>Ciśnienie Tętnicze</strong>
+		<br>
+		<input type="text" class="textbox" style="width: 60px; height: 30px; margin-left: 1px; margin-right: 1px;" />
+		<strong>/</strong><input type="text" class="textbox" style="width: 60px; height: 30px; margin-left: 3px; margin-right: 5px;" /><strong>mmHg</strong>
+		<br><br>
+		<strong>Tętno</strong>
+		<br>
+		<input type="text" class="textbox" style="width: 60px; height: 30px; margin-left: 2px; margin-right: 1px;" />
+		<strong>/ min</strong>
+		 <div class="option-label">
+          <span class="text">‎Miarowe <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+          </div>
+        </div>
+        <div class="option-label">
+          <span class="text">Niemiar. <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+			<input type="checkbox" class="checkbox" />
+          </div>
+        </div>
+		</div>
+		<div class="small-box">
+        <h3>Objawy</h3>
+       <br>
+        <div class="checkbox-headers">
+          <span>T</span>
+          <span>N</span>
+        </div>
+
+        <div class="option-label">
+          <span class="text">Wstrząs <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            <input type="checkbox" class="checkbox" />
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">NZK <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            <input type="checkbox" class="checkbox" />
+          </div>
+        </div>
+
+        <div class="option-label">
+          <span class="text">Obj. oponowe <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            <input type="checkbox" class="checkbox" />
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Drgawki <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            <input type="checkbox" class="checkbox" />
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Afazja <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            <input type="checkbox" class="checkbox" />
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Wymioty <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            <input type="checkbox" class="checkbox" />
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Biegunka <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            <input type="checkbox" class="checkbox" />
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Krwawienie <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            <input type="checkbox" class="checkbox" />
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Obrzęki <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            <input type="checkbox" class="checkbox" />
+          </div>
+        </div>
+
+        <div class="option-label">
+          <span class="text">Zasłabnięcie <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            <input type="checkbox" class="checkbox" />
+          </div>
+        </div>
+        <br>
+		<strong>Inne</strong>
+		<br>
+        <div class="checkbox-headers">
+          <span>T</span>
+          <span>N</span>
+        </div>
+		 <div class="option-label">
+          <span class="text">Ciąża <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            <input type="checkbox" class="checkbox" />
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Poród <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            <input type="checkbox" class="checkbox" />
+          </div>
+		  
+        </div>
+		 <div class="option-label">
+          <span class="text">Chor.zakaźna <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            <input type="checkbox" class="checkbox" />
+          </div>
+		  </div>
+        </div>
+		<div class="small-box">
+		<h3>Skóra</h3>
+		<strong>Wygląd:</strong> 
+		<div class="option-label">
+          <span class="text">W normie <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+       
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Blada <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+          
+          </div>
+        </div>
+
+        <div class="option-label">
+          <span class="text">Rumień <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Zażółcenie <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Sinica obw. <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+           
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Sinica centr. <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+          
+          </div>
+        </div>
+			<br>
+		  <strong>Wilgotność:</strong>
+	
+		 <div class="option-label">
+          <span class="text">W normie <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+       
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Wilgotna <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+          
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Sucha <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+          
+          </div>
+        </div>
+		<br>
+		  <strong>Temperatura</strong>
+        <div class="option-label">
+          <span class="text">W normie <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+          </div>
+		</div>
+		
+				 <div class="option-label">
+          <span class="text">Chłodna <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+          </div>
+		</div>
+				 <div class="option-label">
+          <span class="text">Ciepła <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+          
+          </div>
+		</div>
+		</div>
+	
+		
+		
+		
+    
+	
+  </div>
+  <br>
+  <div class="grid-container">
+	<div class="small-box">
+		<h3>Jama Brzuszna</h3>
+		<div class="option-label">
+          <span class="text">W normie <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+       
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Bolesność palpacyjna <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+          
+          </div>
+        </div>
+
+        <div class="option-label">
+          <span class="text">Brak perystaltyki <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Objawy otrzewnowe<span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            
+          </div>
+        </div>
+		<br>
+		 <strong>Ocena Psycho-Ruch</strong>
+		 <div class="option-label">
+          <span class="text">W normie <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+           
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Spowolniały <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+          
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Pobudzony <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+       
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Agresywny <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+          
+          </div>
+        </div>
+		  </div>
+		  
+  <div class="grid-container">
+	<div class="small-box">
+		<h3>Tony serca</h3>
+		<div class="option-label">
+          <span class="text">Czyste / Głośne <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+       
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Stłumione <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+          
+          </div>
+        </div>
+
+        <div class="option-label">
+          <span class="text">Inne <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            
+          </div>
+        </div>
+		<br>
+		<strong>Niedowład / Porażenie</strong>   <input type="checkbox" class="niedow" />
+        <div class="checkbox-headers">
+          <span>L</span>
+          <span>P</span>
+        </div>
+		 <div class="option-label">
+          <span class="text">Kończyna Górna <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            <input type="checkbox" class="checkbox" />
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Kończyna Dolna <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            <input type="checkbox" class="checkbox" />
+          </div>
+		  </div>
+		  <br>
+		  <strong>Zapach z ust</strong>
+		  <div class="option-label">
+          <span class="text">Rozpuszczalnik org. <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+       
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Alkohol <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+          
+          </div>
+        </div>
+
+        <div class="option-label">
+          <span class="text">Inne <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+          </div>
+        </div>
+		<br>
+		<strong>Poziom Glukozy</strong>
+		<br>
+		<input type="text" class="textbox" style="width: 60px; height: 30px; margin-left: 1px; margin-right: 1px;" />
+		<strong> mg%</strong>
+		<br>
+		<input type="text" class="textbox" style="width: 60px; height: 30px; margin-left: 1px; margin-right: 1px;" />
+		<strong> g/l</strong>
+		<br><br>
+		  </div>
+		  <div class="small-box">
+		<h3>EKG</h3>
+		<div class="option-label">
+          <span class="text">Rytm zatokowy <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+       
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Tachykardia nadkomorowa <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+          
+          </div>
+        </div>
+
+        <div class="option-label">
+          <span class="text">Tachykardia komorowa <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Migotanie / Trzepotanie <span class="leader" aria-hidden="true"></span> <br >przedsionków</span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">AV blok <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+           
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">sVES <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+          
+          </div>
+        </div>
+		 <div class="option-label">
+          <span class="text">VES <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+       
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">VF/VT <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+          
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Asystolia <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+          
+          </div>
+        </div>
+        <div class="option-label">
+          <span class="text">PEA <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+          </div>
+		</div>
+		
+				 <div class="option-label">
+          <span class="text">Rozrusznik <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+          </div>
+		</div>
+				 <div class="option-label">
+          <span class="text">OZW <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+          
+          </div>
+		</div>
+		<div class="option-label">
+          <span class="text">Zawał <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+          </div>
+		</div>
+		Inne: ................................................ <input type="text" class="textbox" style="width: 60px; height: 30px;">
+		 </div>
+		  <div class="small-box">
+		<h3>Obrażenia</h3>
+		<div class="option-label">
+          <span class="text">Złamanie otwarte <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+       
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Złamanie zamknięte <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+          
+          </div>
+        </div>
+
+        <div class="option-label">
+          <span class="text">Zwichnięcie <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Stłuczenie <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Rany <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+           
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Krwotok z rany <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+          
+          </div>
+        </div>
+		 <div class="option-label">
+          <span class="text">Zmiażdżenie <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+       
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Amputacja <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+          
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Ból nieurazowy <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+          
+          </div>
+        </div>
+        <div class="option-label">
+          <span class="text">Oparzenie <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+          </div>
+		</div>
+      </div>
+	  </div>
+	  </div>
+    <h2>Opis</h2>
+    <input type="text" class="textbox" placeholder="Kliknij aby wpisać" />
+  </div>
+  <div class="section">
+    <h2>III - Postępowanie z pacjentem</h2>
+	<div class="grid-container">
+	<div class="small-box">
+		<div class="option-label">
+          <span class="text">Odsysanie <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+       
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Went. workiem <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+          
+          </div>
+        </div>
+
+        <div class="option-label">
+          <span class="text">Rurka UG <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Intubacja <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Respirator <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+           
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Tlenoter. bierna <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+          
+          </div>
+        </div>
+		 <div class="option-label">
+          <span class="text">Defibrylacja <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+       
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Stymulacja zew. <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+          
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Kardiowersja <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+          
+          </div>
+        </div>
+        <div class="option-label">
+          <span class="text">Masaż serca <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+          </div>
+		</div>
+		 </div>
+		  <div class="small-box">
+		<div class="option-label">
+          <span class="text">EKG <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+       
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Teletransmisja <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+          
+          </div>
+        </div>
+
+        <div class="option-label">
+          <span class="text">Kołnież <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Deska ortoped. <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+            
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Materac próż. <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+           
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Unieruchomienie <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+          
+          </div>
+        </div>
+		 <div class="option-label">
+          <span class="text">Opatrunek <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+       
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">linia zyl. obw. <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+          
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">linia zyl. cent. <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+          
+          </div>
+        </div>
+        <div class="option-label">
+          <span class="text">Cewkowanie <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+          </div>
+		</div>
+		 </div>
+		  <div class="small-box">
+		<div class="option-label">
+          <span class="text">Sonda zołąd. <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+       
+          </div>
+        </div>
+		
+		 <div class="option-label">
+          <span class="text">Monitorowanie <span class="leader" aria-hidden="true"></span></span>
+          <div class="checkbox-pair">
+            <input type="checkbox" class="checkbox" />
+          </div>
+        </div>
+		<br>
+	<strong>Inne:</strong>
+	<input type="text" class="textbox" style="width: 60px; height: 30px;">
+      </div>
+	  </div>
+	  </div>
+	<div class="block">
+    <h3>Zalecenia / Uwagi kierownika zespołu</h3>
+    <input type="text" class="textbox" placeholder="Kliknij aby wpisać" />
+
+    <h3>Zastosowane Leki, Wyroby Medyczne (Nazwa,Dawka,Droga Podania)</h3>
+    <input type="text" class="textbox" placeholder="Kliknij aby wpisać" />
+  </div>
+  <div class="block">
+  <h2>IV - Dane pacjenta:<h2>
+    <h3>Imię i Nazwisko</h3>
+	<input type="text" class="textbox" placeholder="Kliknij aby wpisać" />
+    <h3>Adres zamieszkania:</h3>
+    <input type="text" class="textbox" placeholder="Kliknij aby wpisać" />
+	<h3>Data urodzenia:</h3>
+    <input type="text" class="textbox" placeholder="Kliknij aby wpisać" />
+	<h3>PESEL:</h3>
+    <input type="text" class="textbox" placeholder="Kliknij aby wpisać" />
+  </div>
+<h3>‎ ‎ ‎Strona zrobiona w celach Roleplay'u. 
+<h3> ‎  ‎ ‎‎Wszelkie kopie zabronione.<h3>
+<h4>  ‎  ‎ <u>‎‎Made by: Nachash ©2026 </u><h4>  
+
+<script src="./html2canvas.min.js"></script>
+<script>if (typeof html2canvas === "undefined") { document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"><\/script>'); }</script>
+<script>
+async function exportKMCR() {
+  if (typeof html2canvas !== "function") { alert("Nie udało się załadować modułu zapisu obrazu. Sprawdź połączenie z internetem."); return false; }
+  const target=document.body;
+  if(!target){alert("Nie znaleziono formularza do zapisania.");return false;}
+  const docBody=document.body;
+  const oldTab=docBody.dataset.activeTab;
+  const panelNodes=[...docBody.querySelectorAll('[data-kmcr-panel]')];
+  const oldDisplays=panelNodes.map(e=>e.style.display);
+  const oldOverflow=[target.style.overflow,target.style.width,target.style.maxWidth,docBody.style.overflowX,docBody.style.width];
+  try {
+    // Reveal every tab while creating the export; the tablet itself remains tabbed.
+    delete docBody.dataset.activeTab;
+    panelNodes.forEach(e=>{e.style.setProperty('display','block','important')});
+    target.style.overflow='visible'; target.style.width='100%'; target.style.maxWidth='none';
+    docBody.style.overflowX='visible'; docBody.style.width='100%';
+    await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+    const width=Math.min(1800,Math.max(900,target.scrollWidth));
+    const fullHeight=Math.max(target.scrollHeight,target.offsetHeight);
+    // Render manageable vertical slices then stitch them into one PNG to avoid browser canvas-height limits.
+    const sliceHeight=1800;
+    const scale=Math.min(1.25,1800/width);
+    const parts=[];
+    for(let y=0;y<fullHeight;y+=sliceHeight){
+      const h=Math.min(sliceHeight,fullHeight-y);
+      const canvas=await html2canvas(target,{scale,backgroundColor:'#e9eef2',useCORS:true,scrollX:0,scrollY:0,x:0,y,width,height:h,windowWidth:width,windowHeight:h,logging:false});
+      parts.push({canvas,y:Math.round(y*scale)});
+    }
+    const out=document.createElement('canvas'); out.width=Math.round(width*scale); out.height=Math.round(fullHeight*scale);
+    const ctx=out.getContext('2d');ctx.fillStyle='#e9eef2';ctx.fillRect(0,0,out.width,out.height);
+    parts.forEach(p=>ctx.drawImage(p.canvas,0,p.y));
+    const inputs=[...target.querySelectorAll("input[type='text']")];
+    const patientName=(inputs[inputs.length-4]?.value||'').trim().replace(/[^a-z0-9ąćęłńóśźż_-]/gi,'_').slice(0,40);
+    const date=new Date().toISOString().slice(0,10);
+    const blob=await new Promise(resolve=>out.toBlob(resolve,'image/png'));
+    if(!blob) throw new Error('Nie udało się utworzyć pliku PNG');
+    const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download=`KMCR_${patientName||date}.png`;document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);
+    return true;
+  } catch(e){console.error('Błąd generowania obrazu KMCR',e);alert('Nie udało się utworzyć obrazu całej karty. Jeśli formularz jest bardzo długi, spróbuj ponownie.');return false;}
+  finally {
+    if(oldTab) docBody.dataset.activeTab=oldTab; else delete docBody.dataset.activeTab;
+    panelNodes.forEach((e,i)=>{e.style.display=oldDisplays[i]});
+    [target.style.overflow,target.style.width,target.style.maxWidth,docBody.style.overflowX,docBody.style.width]=oldOverflow;
+  }
+}
+</script>
+</div>
+</body>
+</html>
+

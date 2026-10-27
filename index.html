@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#12384c">
+<meta name="description" content="Tablet medyczny KMCR do zastosowań Roleplay.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title>SWD PRM — Tablet medyczny</title>
+<style>
+:root{--navy:#102b3c;--teal:#2f8d91;--line:#7c929f;--screen:#dce5e9}
+*{box-sizing:border-box} body{margin:0;background:radial-gradient(ellipse at top,#334b59,#101a22 75%);font-family:Arial,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;color:#172b3a}
+.tablet{width:min(1500px,98vw);background:#b7bdc0;border:8px solid #68757b;border-radius:38px;padding:16px 16px 22px;box-shadow:0 22px 60px #0009,inset 0 0 0 3px #e0e2e3;position:relative}
+.camera{height:7px;width:7px;border-radius:50%;background:#18232a;position:absolute;top:9px;left:50%}
+.bezel{background:#182630;border-radius:20px;padding:12px;border:2px solid #40515b}
+.topbar{height:42px;background:#12384c;color:#eaf5f8;display:flex;align-items:center;justify-content:space-between;padding:0 15px;font-size:14px;border-radius:5px 5px 0 0}
+.brand{font-weight:bold;letter-spacing:.5px}.status{color:#a8d6d4}
+.screen{height:min(84vh,900px);min-height:500px;background:var(--screen);overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.toolbar{display:flex;gap:7px;align-items:center;flex-wrap:wrap;background:#eaf0f3;padding:8px;border-bottom:1px solid #aabac3}
+.tabs{display:flex;gap:5px;overflow-x:auto;width:100%;padding:2px 0 5px;scrollbar-width:thin}.tabs button{white-space:nowrap;padding:8px 11px;font-size:12px;background:#d4e2e8;color:#1b485b;border:1px solid #b8cbd5}.tabs button.active{background:#176c79;color:#fff}.toolbar .actions{display:flex;gap:8px;align-items:center;width:100%;flex-wrap:wrap}.toolbar .label{flex:1 1 220px}
+.toolbar .label{font-weight:bold;color:#244b5e;margin-right:auto}
+button{border:0;border-radius:4px;padding:11px 17px;font-size:14px;font-weight:bold;cursor:pointer}
+.secondary{background:#d4e2e8;color:#1b485b}.finish{background:#187f70;color:white;box-shadow:0 2px 0 #0b5148}.finish:hover{background:#116b5f}
+.framewrap{flex:1;min-height:0;min-width:0;overflow:hidden;background:white}iframe{border:0;width:100%;height:100%;background:white;display:block}
+.bottom{height:26px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;color:#d9e3e8;font-size:11px}
+.sidebutton{position:absolute;right:-13px;top:48%;width:22px;height:44px;border-radius:0 8px 8px 0;background:#65747b;border:2px solid #d3d6d7}
+.note{font-size:11px;color:#b5c3ca;text-align:center;margin-top:10px}
+@media(max-width:700px){body{padding:5px}.tablet{width:100%;border-width:5px;border-radius:20px;padding:8px}.bezel{padding:6px}.screen{height:82vh;min-height:420px}.topbar{height:35px}.toolbar{gap:5px;padding:6px}.toolbar button{padding:9px;font-size:12px}.toolbar .label{width:100%}}
+</style>
+</head>
+<body>
+<div class="tablet">
+<div class="camera"></div><div class="sidebutton"></div>
+<div class="bezel">
+  <div class="topbar"><span class="brand">SWD PRM <span style="font-weight:normal">/ Terminal mobilny ZRM</span></span><span class="status">● SYSTEM GOTOWY</span></div>
+  <div class="screen">
+    <div class="toolbar">
+      <div class="tabs" id="sectionTabs" aria-label="Sekcje dokumentacji">
+        <button class="active" data-target="zrm">Dane ZRM</button>
+        <button data-target="wywiad">I — Wywiad</button>
+        <button data-target="badanie">II — Badanie</button>
+        <button data-target="postepowanie">III — Postępowanie</button>
+        <button data-target="pacjent">IV — Dane pacjenta</button>
+      </div>
+      <div class="actions"><span class="label">Karta Medycznych Czynności Ratunkowych</span>
+      <button class="secondary" id="topBtn">Początek formularza</button>
+      <button class="finish" id="finishBtn">Zakończ dokumentację</button></div>
+    </div>
+    <div class="framewrap"><iframe id="formFrame" src="KMCR.html" title="Formularz KMCR"></iframe></div>
+  </div>
+  <div class="bottom"><span>Terminal mobilny • ZRM</span><span>Tryb demonstracyjny / Roleplay</span></div>
+</div>
+</div>
+<script>
+const frame=document.getElementById('formFrame');
+const tabButtons=[...document.querySelectorAll('#sectionTabs button')];
+function applyTab(key){
+  const doc=frame.contentDocument;
+  if(!doc || !doc.body) return;
+  // Build logical panels once from the existing KMCR content, preserving all original form controls.
+  if(!doc.body.dataset.tabPanelsReady){
+    const root=doc.body;
+    const panels={zrm:[],wywiad:[],badanie:[],postepowanie:[],pacjent:[]};
+    const all=[...root.querySelectorAll('.block,.section')];
+    const textOf=e=>(e.innerText||e.textContent||'').replace(/\s+/g,' ').trim();
+    const findContainer=(phrase)=>all.find(e=>[...e.querySelectorAll('h1,h2,h3')].some(h=>textOf(h).toLowerCase().includes(phrase)));
+    const zrm=findContainer('oznaczenie dysponenta');
+    const wywiad=findContainer('wywiad');
+    const badanie=findContainer('badanie');
+    const post=findContainer('postępowanie');
+    const patient=findContainer('dane pacjenta');
+    // Mark the smallest matching content containers. Any unmatched loose content is assigned by section order.
+    const candidates=[...root.children];
+    const set=[['zrm',zrm],['wywiad',wywiad],['badanie',badanie],['postepowanie',post],['pacjent',patient]];
+    set.forEach(([k,e])=>{if(e && !panels[k].includes(e)) panels[k].push(e)});
+    // Keep the original complete form as the source for export; show one selected section at a time in the tablet.
+    doc.querySelectorAll('.block,.section').forEach(e=>{
+      const t=textOf(e).toLowerCase();
+      let k=null;
+      if(t.includes('oznaczenie dysponenta zespołu')) k='zrm';
+      else if(t.includes('i - wywiad')) k='wywiad';
+      else if(t.includes('ii - badanie')) k='badanie';
+      else if(t.includes('iii - postępowanie')) k='postepowanie';
+      else if(t.includes('iv - dane pacjenta')) k='pacjent';
+      if(k) e.dataset.kmcrPanel=k;
+    });
+    // Attach a section label to each form block by the nearest preceding section heading.
+    let current='zrm';
+    const walker=doc.createTreeWalker(root,NodeFilter.SHOW_ELEMENT);
+    let node;
+    while(node=walker.nextNode()){
+      if(/^H[12]$/.test(node.tagName)){
+        const t=textOf(node).toLowerCase();
+        if(t.includes('i - wywiad')) current='wywiad';
+        else if(t.includes('ii - badanie')) current='badanie';
+        else if(t.includes('iii - postępowanie')) current='postepowanie';
+        else if(t.includes('iv - dane pacjenta')) current='pacjent';
+        else if(t.includes('karta medycznych')) current='zrm';
+      }
+      const parent=node.closest('.block,.section');
+      if(parent && !parent.dataset.kmcrPanel) parent.dataset.kmcrPanel=current;
+    }
+    // Set the panel label on each leaf block according to its own heading where possible.
+    doc.querySelectorAll('.block,.section').forEach(e=>{
+      const t=textOf(e).toLowerCase();
+      if(t.includes('oznaczenie dysponenta zespołu')) e.dataset.kmcrPanel='zrm';
+      else if(t.includes('i - wywiad')) e.dataset.kmcrPanel='wywiad';
+      else if(t.includes('ii - badanie')) e.dataset.kmcrPanel='badanie';
+      else if(t.includes('iii - postępowanie')) e.dataset.kmcrPanel='postepowanie';
+      else if(t.includes('iv - dane pacjenta')) e.dataset.kmcrPanel='pacjent';
+    });
+    doc.body.dataset.tabPanelsReady='1';
+    const style=doc.createElement('style');
+    style.textContent=`html,body{max-width:100%;overflow-x:hidden!important}#pdf-content{max-width:100%;overflow:visible!important}.grid-container{display:flex;flex-wrap:wrap!important;gap:10px;max-width:100%}.small-box{width:auto;flex:1 1 280px;min-width:0;max-width:100%}.option-label span.text{white-space:normal!important}.checkbox-headers{margin-left:auto!important;width:70px;gap:25px;justify-content:space-around;padding-right:0;flex-shrink:0}@media(max-width:900px){.checkbox-headers{width:50px;gap:12px}}.textbox{max-width:100%}body[data-active-tab] [data-kmcr-panel]{display:none!important}body[data-active-tab="zrm"] [data-kmcr-panel="zrm"],body[data-active-tab="wywiad"] [data-kmcr-panel="wywiad"],body[data-active-tab="badanie"] [data-kmcr-panel="badanie"],body[data-active-tab="postepowanie"] [data-kmcr-panel="postepowanie"],body[data-active-tab="pacjent"] [data-kmcr-panel="pacjent"]{display:block!important}`;
+    doc.head.appendChild(style);
+  }
+  doc.body.dataset.activeTab=key;
+  // Export routine temporarily reveals all panels itself, so the downloaded image includes the entire form.
+  tabButtons.forEach(b=>b.classList.toggle('active',b.dataset.target===key));
+  const root=doc.body;
+  root.scrollTop=0;
+  frame.contentWindow.scrollTo(0,0);
+}
+frame.addEventListener('load',()=>applyTab('zrm'));
+if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js').catch(() => {})); }
+document.getElementById('sectionTabs').addEventListener('click',e=>{const b=e.target.closest('button[data-target]');if(b)applyTab(b.dataset.target)});
+document.getElementById('topBtn').addEventListener('click',()=>applyTab('zrm'));
+document.getElementById('finishBtn').addEventListener('click', async function(){
+ try{this.disabled=true;this.textContent='Tworzenie obrazu…';const result=await frame.contentWindow.exportKMCR();if(result!==false){this.textContent='Dokumentacja zapisana';setTimeout(()=>{this.textContent='Zakończ dokumentację';this.disabled=false},2200)}else{this.textContent='Zakończ dokumentację';this.disabled=false}}
+ catch(e){alert('Nie udało się zapisać dokumentacji. Upewnij się, że formularz został załadowany.');this.textContent='Zakończ dokumentację';this.disabled=false}
+});
+</script>
+</body>
+</html>
